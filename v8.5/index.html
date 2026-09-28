@@ -1,0 +1,269 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SINTRON Arcade Stick Agent Listing - Amazon上傳前檢查表</title><style>
+:root{
+  --ink:#1F1F1F; --body:#3D3D3D; --muted:#8A8A8A; --paper:#F4F3F0;
+  --gold:#C9962E; --chip:#D8D6D0; --line:#E3E1DC;
+  --amz:#007185; --amzPrice:#B12704;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:#fff;color:var(--body);
+  font-family:"Segoe UI","Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;
+  font-size:15px;line-height:1.5}
+img{max-width:100%;display:block}
+
+/* ---------- 工具列 ---------- */
+.bar{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);
+  box-shadow:0 1px 6px rgba(0,0,0,.05)}
+.barIn{max-width:1240px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{font-weight:700;color:var(--ink);font-size:14px;letter-spacing:.3px;white-space:nowrap}
+.brand span{color:var(--gold)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab{border:1px solid var(--chip);background:#fff;color:var(--body);border-radius:999px;
+  padding:7px 16px;font-size:14px;font-weight:600;cursor:default;white-space:nowrap;font-family:inherit}
+.tab.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.asin{margin-left:auto;font-size:12.5px;color:var(--muted);white-space:nowrap}
+.asin b{color:var(--ink);font-family:Consolas,monospace;letter-spacing:.4px}
+.jump{display:flex;gap:5px;flex-wrap:wrap;font-size:12px}
+.jump a{color:var(--amz);text-decoration:none;border:1px solid var(--line);border-radius:5px;padding:3px 7px}
+.jump a:hover{background:var(--paper)}
+@media(max-width:700px){.jump{display:none}}
+
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px 90px}
+
+/* ---------- 區塊標頭 ---------- */
+.sec{margin-top:38px;border-top:1px solid var(--line);padding-top:26px}
+.secH{display:flex;align-items:baseline;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.secN{background:var(--ink);color:#fff;font-size:12px;font-weight:700;letter-spacing:1px;
+  padding:4px 10px;border-radius:4px;white-space:nowrap}
+.secT{font-size:19px;font-weight:700;color:var(--ink)}
+h2.amzH{font-size:21px;font-weight:700;color:var(--ink);margin:46px 0 0;padding-top:22px;border-top:1px solid var(--line)}
+
+/* ---------- Amazon 上半部 ---------- */
+.top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:36px;padding-top:26px}
+@media(max-width:900px){.top{grid-template-columns:1fr}}
+.galWrap{display:flex;gap:12px}
+.thumbs{display:flex;flex-direction:column;gap:8px;flex:0 0 62px}
+.thumbs img{width:62px;height:62px;object-fit:cover;border:1px solid var(--line);border-radius:5px;cursor:pointer;background:#fff}
+.thumbs img.on{border:2px solid var(--amz);box-shadow:0 0 0 2px #cfe8ee}
+.zoomHost{position:relative;flex:1;min-width:0;align-self:flex-start}
+.main{border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff;cursor:crosshair}
+.lens{position:absolute;display:none;z-index:20;pointer-events:none;
+  background:rgba(255,255,255,.32);border:1px solid rgba(0,0,0,.28)}
+.zoomPane{position:absolute;display:none;z-index:60;top:0;left:calc(100% + 26px);
+  width:560px;height:560px;border:1px solid var(--line);border-radius:4px;background-color:#fff;
+  background-repeat:no-repeat;box-shadow:0 10px 34px rgba(0,0,0,.22)}
+.main img{width:100%;aspect-ratio:1/1;object-fit:contain;background:#fff}
+
+h1.title{font-size:23px;line-height:1.35;font-weight:400;color:var(--ink);margin-bottom:8px}
+.hl{font-size:14px;line-height:1.5;color:var(--body);margin-bottom:8px}
+.byline{font-size:13.5px;color:var(--amz);margin-bottom:10px}
+.price{font-size:26px;color:var(--amzPrice);font-weight:400;margin:12px 0 4px}
+.abt{font-size:15px;font-weight:700;color:var(--ink);margin:18px 0 8px}
+ul.bul{list-style:disc;padding-left:20px}
+ul.bul li{margin-bottom:9px;font-size:14px;line-height:1.55}
+
+/* ---------- A+ 容器 ---------- */
+.aplus{background:var(--paper);border-radius:8px;padding:18px;margin-top:6px}
+.apItem{position:relative;background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.apItem img{width:100%}
+
+/* 格1 Hotspots */
+.hsWrap{position:relative}
+.hs{position:absolute;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;cursor:pointer;
+  background:transparent;border:0;padding:0}
+.hs:focus{outline:none}
+.hsCard{display:none;position:absolute;z-index:30;width:300px;background:#fff;border:1px solid var(--line);
+  border-radius:4px;padding:12px 14px;box-shadow:0 4px 18px rgba(0,0,0,.14);text-align:left;font-family:inherit;cursor:default}
+.hs.right .hsCard{left:44px;top:-10px}
+.hs.left .hsCard{right:44px;top:-10px}
+.hs.up .hsCard{top:auto;bottom:-10px}
+.hs:hover .hsCard,.hs.on .hsCard{display:block}
+.hsCard b{display:block;font-size:14px;color:var(--ink);margin-bottom:5px;letter-spacing:.2px}
+.hsCard p{font-size:13.5px;line-height:1.5;color:var(--body)}
+.hsList{display:grid;margin-top:14px;grid-template-columns:1fr 1fr;gap:10px}
+.hsList div{background:#fff;border:1px solid var(--line);border-radius:4px;padding:12px 14px}
+.hsList b{display:block;font-size:14px;color:var(--ink);margin-bottom:4px}
+.hsList p{font-size:13.5px;line-height:1.5}
+.hsList i{display:inline-block;width:20px;height:20px;border-radius:50%;background:#2255FF;color:#fff;
+  font-style:normal;font-size:12px;font-weight:700;text-align:center;line-height:20px;margin-right:6px}
+@media(max-width:900px){.hs{display:none}}
+@media(max-width:560px){.hsList{grid-template-columns:1fr}}
+
+/* 輪播(格2)/ 頁籤輪播(格3) */
+.car{position:relative;background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+  scrollbar-width:none;-ms-overflow-style:none;outline:none}
+.track::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;scroll-snap-align:center;min-width:0}
+.slideImg{background:#fff}
+.car.fixed .slideImg{aspect-ratio:var(--ar);display:flex;align-items:center;justify-content:center}
+.car.fixed .slideImg img{max-width:100%;max-height:100%;width:auto;height:auto}
+.slideImg img{width:100%;display:block}
+.cap{border-top:1px solid var(--line);padding:14px 22px 16px;background:#fff}
+.cap b{display:block;font-size:16px;color:var(--ink);margin-bottom:4px}
+.cap p{font-size:14px;line-height:1.55;max-width:90ch}
+.carBtn{position:absolute;top:50%;transform:translateY(-50%);z-index:3;
+  width:46px;height:46px;border-radius:50%;border:1px solid var(--chip);
+  background:rgba(255,255,255,.95);color:var(--ink);font-size:24px;line-height:1;cursor:pointer;
+  box-shadow:0 2px 12px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;
+  font-family:inherit;padding-bottom:3px;transition:opacity .15s,background .15s}
+.carBtn:hover{background:#fff}
+.carBtn.prev{left:14px}
+.carBtn.next{right:14px}
+.carBtn[disabled]{opacity:.25;cursor:default;box-shadow:none}
+.car.cap-under .carBtn{top:calc(50% - 40px)}
+.carFoot{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:12px}
+.dots{display:flex;gap:7px;align-items:center}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--chip);border:0;padding:0;cursor:pointer;transition:all .15s}
+.dot:hover{background:var(--gold)}
+.dot.on{background:var(--ink);width:11px;height:11px}
+
+.navTabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px;border-bottom:1px solid var(--line)}
+.navTab{background:none;border:0;border-bottom:3px solid transparent;padding:9px 16px;font-size:14px;font-weight:600;
+  color:var(--body);cursor:pointer;font-family:inherit;margin-bottom:-1px;white-space:nowrap}
+.navTab:hover{color:var(--ink)}
+.navTab.on{color:var(--ink);border-bottom-color:var(--amz)}
+
+/* 格4 Four Images & Text */
+.four{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media(max-width:900px){.four{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.four{grid-template-columns:1fr}}
+.four .cell{background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.four .cell img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.four .ct{padding:12px 14px 16px}
+.four .ct b{display:block;font-size:15px;color:var(--ink);margin-bottom:5px}
+.four .ct p{font-size:13.5px;line-height:1.5}
+
+/* 格5 規格表 */
+.spec{display:grid;grid-template-columns:1fr 1fr;gap:0 14px;background:#fff;border:1px solid var(--line);border-radius:6px;padding:6px 14px}
+@media(max-width:900px){.spec{grid-template-columns:1fr}}
+table.tspec{border-collapse:collapse;width:100%;font-size:13.5px}
+table.tspec th,table.tspec td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+table.tspec th{width:34%;font-weight:600;color:var(--ink);background:var(--paper)}
+table.tspec tr:last-child th,table.tspec tr:last-child td{border-bottom:0}
+
+/* 文字模組 */
+.txtMod{background:#fff;border:1px solid var(--line);border-radius:8px;padding:26px 30px}
+.txtMod h3{font-size:16px;font-weight:700;color:var(--ink);margin:0 0 12px;letter-spacing:.3px}
+.txtMod p{font-size:14px;line-height:1.65;margin-bottom:12px;max-width:78ch}
+.txtMod p:last-child{margin-bottom:0}
+.txtMod ul{list-style:disc;padding-left:20px;margin-bottom:12px}
+.txtMod li{font-size:14px;line-height:1.6;margin-bottom:6px;max-width:76ch}
+.qa{border-top:1px solid var(--line);padding:16px 0}
+.qa:first-child{border-top:0;padding-top:0}
+.qa:last-child{padding-bottom:0}
+.qaQ{font-size:14.5px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.qaA{font-size:14px;line-height:1.6;max-width:78ch}
+.desc p{font-size:14px;line-height:1.65;max-width:100ch}
+.foot{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+
+/* 格2 Premium Full Video */
+.vid{background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.vid video{width:100%;display:block;background:#000;aspect-ratio:16/9}
+.vidCap{padding:16px 22px 18px;border-top:1px solid var(--line)}
+.vidCap b{display:block;font-size:16px;color:var(--ink);margin-bottom:5px}
+.vidCap p{font-size:14px;line-height:1.55;max-width:90ch}
+.note{font-size:12.5px;color:var(--muted);margin-top:8px}
+</style></head><body><div class="bar"><div class="barIn"><div class="brand">SINTRON <span>Arcade Stick Agent</span> Listing - Amazon上傳前檢查表</div><div class="tabs"><span class="tab on">Board only</span></div><div class="jump"><a href="#gal">主圖</a><a href="#g1">A+格1</a><a href="#g2">A+格2</a><a href="#g3">A+格3</a><a href="#g4">A+格4</a><a href="#g5">A+格5</a><a href="#g6">A+格6</a><a href="#g7">A+格7</a><a href="#g8">A+格8</a><a href="#g9">A+格9</a><a href="#g10">A+格10</a><a href="#g11">A+格11</a></div><div class="asin">ASIN <b>—</b></div></div></div><div class="wrap"><div class="top" id="gal"><div><div class="galWrap"><div class="thumbs" id="thumbs"></div><div class="zoomHost" id="zoomHost"><div class="main"><img id="mainImg" alt="主圖"></div><div class="lens" id="lens"></div><div class="zoomPane" id="zoomPane"></div></div></div></div><div><h1 class="title">SINTRON Arcade Stick Agent GP2040-CE Arcade Encoder Fighting Board, PC PS5</h1><div class="hl">Board for DIY fightstick, leverless or cabinet: PC, PS3, Switch out of the box; PS4, PS5, Xbox with auth dongle; no soldering</div><div class="byline">Visit the SINTRON Store</div><div class="price">$29.99</div><div class="abt">About this item</div><ul class="bul"><li>BUILD OR UPGRADE YOUR ARCADE STICK – the Arcade Stick Agent is the controller board inside a fightstick, leverless controller or cabinet panel. Wire your buttons and lever to it, plug in USB, and it speaks to your PC or console for you. Board only.</li><li>WORKS ON PC AND CONSOLES – XInput on PC and Raspberry Pi, no drivers; native PS3 and Nintendo Switch modes; keyboard mode for MAME cabinets. PS4, PS5 and Xbox One / Series X|S use an authentication dongle in the passthrough port, sold separately.</li><li>NO SOLDERING AT THE BOARD – 20-position 3.81 mm screw terminals take stripped wire from 4.8 mm American or 2.8 mm Japanese buttons. A 2x10 header takes a standard 20-pin harness and a 4-pin plug covers A2, L3 and R3. Strip, insert, tighten.</li><li>UNDER 1 MS INPUT LATENCY – 0.76 ms average in XInput mode and 0.91 ms in PS5 mode at 1000 Hz USB polling, as published by the open-source firmware project this board runs. For leverless and competitive play, where every frame counts.</li><li>SET UP IN YOUR BROWSER, NO APP – plug in, open the setup page and press each button when asked. Turbo, SOCD cleaning for leverless play, macros, 6 button-map profiles and per-button RGB are all set on the same page and saved on the board.</li><li>ONE BOARD PER PLAYER – for a two-player cabinet, use two boards: each shows up as its own controller with its own button map, and keyboard mode covers MAME builds. Two boards are required for two players; this listing includes one board.</li><li>READY WHEN IT ARRIVES – pre-flashed with the current stable open-source firmware and individually checked by SINTRON before shipping. Industry-standard 96.3 x 45.31 mm footprint with 4 mounting holes fits existing cases. Hardware support from SINTRON.</li></ul></div></div><h2 class="amzH">From the manufacturer</h2><div class="sec" id="g1" style="border-top:0;margin-top:14px;padding-top:0"><div class="secH"><span class="secN">A+格1</span><span class="secT">Premium Full Image · Give your stick an Agent</span></div><div class="aplus"><div class="apItem"><img src="aplus/gA.jpg" alt="Premium Full Image · Give your stick an Agent"></div></div></div><div class="sec" id="g2"><div class="secH"><span class="secN">A+格2</span><span class="secT">Premium Full Video</span></div><div class="aplus"><div class="vid"><video controls preload="metadata" playsinline poster="video/poster.jpg"><source src="video/intro_v2_60s.mp4" type="video/mp4"></video><div class="vidCap"><b>SINTRON Arcade Stick Agent in 60 seconds</b><p>How the Agent fits in your stick: wire to the screw terminals, set up in your browser, pick your platform. Board only; auth dongle sold separately for PS4, PS5 and Xbox.</p></div></div></div></div><div class="sec" id="g3"><div class="secH"><span class="secN">A+格3</span><span class="secT">Premium Full Image · Which one are you?</span></div><div class="aplus"><div class="apItem"><img src="aplus/gW.jpg" alt="Premium Full Image · Which one are you?"></div></div></div><div class="sec" id="g4"><div class="secH"><span class="secN">A+格4</span><span class="secT">Premium Full Image · Why an Agent?</span></div><div class="aplus"><div class="apItem"><img src="aplus/gV.jpg" alt="Premium Full Image · Why an Agent?"></div></div></div><div class="sec" id="g5"><div class="secH"><span class="secN">A+格5</span><span class="secT">Premium Hotspots</span></div><div class="aplus"><div class="apItem hsWrap"><img src="aplus/g1.jpg" alt="A+ hotspots"><button type="button" class="hs left" style="left:66.90%;top:22.90%" aria-label="Hotspot 1"><span class="hsCard"><b>SCREW TERMINALS · 20 positions, 3.81 mm</b><p>Stripped wire from any button lands here: 4.8 mm American or 2.8 mm Japanese. One signal and one G per button. Strip, insert, tighten. No soldering.</p></span></button><button type="button" class="hs right up" style="left:52.20%;top:73.87%" aria-label="Hotspot 2"><span class="hsCard"><b>2x10 HEADER · standard 20-pin</b><p>A loom built for the standard 20-pin layout plugs straight in. The header sits in the standard position, so a harness from your old board fits.</p></span></button><button type="button" class="hs right up" style="left:63.35%;top:76.39%" aria-label="Hotspot 3"><span class="hsCard"><b>4-PIN PLUG · A2 · L3 · R3</b><p>One plug for the three extra buttons. A2 is the touchpad button on PS4 and capture on Switch.</p></span></button><button type="button" class="hs right" style="left:41.18%;top:40.33%" aria-label="Hotspot 4"><span class="hsCard"><b>USB-A PASSTHROUGH</b><p>The authentication dongle for PS4, PS5 and Xbox goes here. Sold separately. A DualShock or DualSense will not authenticate.</p></span></button><button type="button" class="hs left" style="left:92.00%;top:40.63%" aria-label="Hotspot 5"><span class="hsCard"><b>USB-B AND USB-C</b><p>Two device ports, so the board fits a panel-mount USB-B or a USB-C build. Use one at a time.</p></span></button><button type="button" class="hs right" style="left:46.76%;top:60.27%" aria-label="Hotspot 6"><span class="hsCard"><b>RGB · EXPANSION</b><p>3-pin plug for WS2812B / SK6812 RGB LEDs and an I2C port for a 128x64 OLED.</p></span></button></div><div class="hsList"><div><b><i>1</i>SCREW TERMINALS · 20 positions, 3.81 mm</b><p>Stripped wire from any button lands here: 4.8 mm American or 2.8 mm Japanese. One signal and one G per button. Strip, insert, tighten. No soldering.</p></div><div><b><i>2</i>2x10 HEADER · standard 20-pin</b><p>A loom built for the standard 20-pin layout plugs straight in. The header sits in the standard position, so a harness from your old board fits.</p></div><div><b><i>3</i>4-PIN PLUG · A2 · L3 · R3</b><p>One plug for the three extra buttons. A2 is the touchpad button on PS4 and capture on Switch.</p></div><div><b><i>4</i>USB-A PASSTHROUGH</b><p>The authentication dongle for PS4, PS5 and Xbox goes here. Sold separately. A DualShock or DualSense will not authenticate.</p></div><div><b><i>5</i>USB-B AND USB-C</b><p>Two device ports, so the board fits a panel-mount USB-B or a USB-C build. Use one at a time.</p></div><div><b><i>6</i>RGB · EXPANSION</b><p>3-pin plug for WS2812B / SK6812 RGB LEDs and an I2C port for a 128x64 OLED.</p></div></div></div></div><div class="sec" id="g6"><div class="secH"><span class="secN">A+格6</span><span class="secT">Premium Simple Image Carousel</span></div><div class="aplus"><div class="car cap-under" id="car2"><button class="carBtn prev" type="button" aria-label="上一張">&lsaquo;</button><div class="track" tabindex="0"><div class="slide"><div class="slideImg"><img src="aplus/g2-1.jpg" alt="car2-1" loading="lazy"></div><div class="cap"><b>Speaks every platform</b><p>XInput on PC with no drivers, native PS3 and Switch modes, keyboard mode for MAME cabinets, and PS4, PS5 and Xbox through an authentication dongle in the passthrough port.</p></div></div><div class="slide"><div class="slideImg"><img src="aplus/g2-2.jpg" alt="car2-2" loading="lazy"></div><div class="cap"><b>Learns your layout</b><p>Open the setup page in your browser and press each button when it asks. Any button can be any function, and six named profiles are saved on the board.</p></div></div><div class="slide"><div class="slideImg"><img src="aplus/g2-3.jpg" alt="car2-3" loading="lazy"></div><div class="cap"><b>Enforces your rules</b><p>SOCD cleaning with five modes for leverless play: up priority, neutral, last win, first win, off. Switched by hotkey. Turbo and macros are set on the same page.</p></div></div><div class="slide"><div class="slideImg"><img src="aplus/g2-4.jpg" alt="car2-4" loading="lazy"></div><div class="cap"><b>Keeps improving</b><p>Runs the open-source GP2040-CE firmware. New releases add features and fixes: update by USB drag-and-drop and back up your settings from the setup page.</p></div></div><div class="slide"><div class="slideImg"><img src="aplus/g2-5.jpg" alt="car2-5" loading="lazy"></div><div class="cap"><b>Keeps your parts</b><p>Your buttons and lever carry over. Strip the wire ends and land them in the screw terminals, or plug a standard 20-pin harness into the header. No soldering, no new harness.</p></div></div><div class="slide"><div class="slideImg"><img src="aplus/g2-6.jpg" alt="car2-6" loading="lazy"></div><div class="cap"><b>Arrives ready</b><p>Pre-flashed with the current stable firmware and individually checked by SINTRON before it ships: every input, both USB ports, the passthrough port and the boot into the setup page.</p></div></div></div><button class="carBtn next" type="button" aria-label="下一張">&rsaquo;</button></div><div class="carFoot" id="foot2"><div class="dots"><button class="dot" type="button" data-i="0" aria-label="第 1 張"></button><button class="dot" type="button" data-i="1" aria-label="第 2 張"></button><button class="dot" type="button" data-i="2" aria-label="第 3 張"></button><button class="dot" type="button" data-i="3" aria-label="第 4 張"></button><button class="dot" type="button" data-i="4" aria-label="第 5 張"></button><button class="dot" type="button" data-i="5" aria-label="第 6 張"></button></div></div></div></div><div class="sec" id="g7"><div class="secH"><span class="secN">A+格7</span><span class="secT">Premium Navigation Carousel</span></div><div class="aplus"><div class="navTabs"><button type="button" class="navTab on" data-tab="0">PC &amp; CABINETS</button><button type="button" class="navTab" data-tab="1">PS3 &amp; SWITCH</button><button type="button" class="navTab" data-tab="2">PS4 &amp; PS5</button><button type="button" class="navTab" data-tab="3">XBOX</button><button type="button" class="navTab" data-tab="4">MINI CONSOLES</button></div><div class="car cap-under" id="car3"><button class="carBtn prev" type="button" aria-label="上一張">&lsaquo;</button><div class="track" tabindex="0"><div class="slide"><div class="slideImg"><img src="aplus/g3-1.jpg" alt="car3-1" loading="lazy"></div><div class="cap"><b>Plug in and play. No drivers.</b><p>XInput on PC and Raspberry Pi; keyboard mode for MAME cabinets. Steam Deck, MiSTer and Android too.</p></div></div><div class="slide"><div class="slideImg"><img src="aplus/g3-2.jpg" alt="car3-2" loading="lazy"></div><div class="cap"><b>Native modes. No dongle.</b><p>PS3 mode also covers PS4 titles with legacy-controller support. Switch mode is native.</p></div></div><div class="slide"><div class="slideImg"><img src="aplus/g3-3.jpg" alt="car3-3" loading="lazy"></div><div class="cap"><b>Authentication dongle needed</b><p>An authentication dongle or a licensed PS4 arcade stick in the passthrough port. Sold separately.</p></div></div><div class="slide"><div class="slideImg"><img src="aplus/g3-4.jpg" alt="car3-4" loading="lazy"></div><div class="cap"><b>Authentication dongle needed</b><p>Xbox One and Series X|S: Xbox One mode with an Xbox authentication dongle in the passthrough port.</p></div></div><div class="slide"><div class="slideImg"><img src="aplus/g3-5.jpg" alt="car3-5" loading="lazy"></div><div class="cap"><b>Dedicated modes, built in</b><p>Genesis Mini, NEOGEO Mini, PC Engine Mini, EGRET II Mini, ASTROCITY Mini, PS Classic.</p></div></div></div><button class="carBtn next" type="button" aria-label="下一張">&rsaquo;</button></div></div></div><div class="sec" id="g8"><div class="secH"><span class="secN">A+格8</span><span class="secT">Premium Four Images &amp; Text</span></div><div class="aplus"><div class="four"><div class="cell"><img src="aplus/g4-1.jpg" alt="A+四格-1" loading="lazy"><div class="ct"><b>Builder</b><p>Wiring a fightstick or leverless from parts? Land each button on a screw terminal, plug in USB and map it in your browser. One board, every platform.</p></div></div><div class="cell"><img src="aplus/g4-2.jpg" alt="A+四格-2" loading="lazy"><div class="ct"><b>Upgrader</b><p>Have a stick locked to one console? Replace its board with the Agent: your buttons and lever stay, and the stick works on PC, PS5, Switch and more.</p></div></div><div class="cell"><img src="aplus/g4-3.jpg" alt="A+四格-3" loading="lazy"><div class="ct"><b>Cabinet builder</b><p>One board per player. Each panel shows up as its own controller with its own map; keyboard mode covers MAME. Two players need two boards.</p></div></div><div class="cell"><img src="aplus/g4-4.jpg" alt="A+四格-4" loading="lazy"><div class="ct"><b>Before you buy</b><p>Board only: bring a USB-B or USB-C cable and your button wires. PS4, PS5 and Xbox need an authentication dongle, sold separately.</p></div></div></div></div></div><div class="sec" id="g9"><div class="secH"><span class="secN">A+格9</span><span class="secT">Premium Technical Specifications</span></div><div class="aplus"><div class="spec"><table class="tspec"><tr><th>Board</th><td>SINTRON Arcade Stick Agent: RP2040 Advanced Breakout Board, USB Passthrough Edition, revision V5.6E</td></tr><tr><th>Dimensions</th><td>96.3 x 45.31 mm, 4 mounting holes, industry-standard fight-board footprint</td></tr><tr><th>Inputs</th><td>18: 15 signals on the screw terminals plus A2, L3 and R3 on the 4-pin plug</td></tr><tr><th>Wiring</th><td>Screw terminals accept stripped wire from 4.8 mm American or 2.8 mm Japanese button terminals; G positions along the row</td></tr><tr><th>Screw terminals</th><td>20-position, 3.81 mm pitch; plus 10 optional pins and 3 toggle terminals, also 3.81 mm</td></tr><tr><th>Header</th><td>2x10, 2.54 mm, standard 20-pin harness position and pinout</td></tr><tr><th>Buttons on board</th><td>WEB CONFIG, BOOT and RESET</td></tr><tr><th>Expansion</th><td>I2C port for a 128x64 OLED (SSD1306 / SH1106 / SH1107)</td></tr></table><table class="tspec"><tr><th>RGB</th><td>3-pin plug, WS2812B / SK6812</td></tr><tr><th>USB</th><td>USB-B and USB-C device ports (use one at a time); USB-A passthrough port for the authentication dongle</td></tr><tr><th>Switches</th><td>USB / OPTION; LED / GPIO25</td></tr><tr><th>Input modes</th><td>XInput, PS3/DInput, PS4, PS5, Xbox One, Switch, Keyboard, Original Xbox, mini-console; mode saved across power cycles</td></tr><tr><th>Profiles</th><td>6 button-map profiles, named, switched by hotkey or on the setup page</td></tr><tr><th>SOCD cleaning</th><td>Up priority, Neutral, Last win, First win, Off (Off in XInput only)</td></tr><tr><th>Latency</th><td>0.76 ms XInput / 0.91 ms PS5 at 1000 Hz USB polling (published by the firmware project, not a SINTRON test)</td></tr><tr><th>Firmware</th><td>Open-source GP2040-CE, pre-flashed with the current stable release; update by USB drag-and-drop; settings backup and restore</td></tr></table></div></div></div><div class="sec" id="g10"><div class="secH"><span class="secN">A+格10</span><span class="secT">Premium Q&amp;A</span></div><div class="txtMod"><div class="qa"><div class="qaQ">Q1｜What is included, and what do I need to add?</div><div class="qaA">One board. Add a USB-B or USB-C cable, your buttons, lever and wires, and, for PS4, PS5 or Xbox, an authentication dongle. No software: setup runs in your browser.</div></div><div class="qa"><div class="qaQ">Q2｜Do I need to solder or program anything?</div><div class="qaA">No. Stripped wires go into the screw terminals, or a standard 20-pin harness plugs into the header. The firmware is pre-flashed; you map buttons by pressing them on the setup page.</div></div><div class="qa"><div class="qaQ">Q3｜How do I set it up for my console?</div><div class="qaA">Hold a button while plugging in to pick the mode. PC, PS3 and Switch need nothing else. For PS4, PS5 or Xbox, put an authentication dongle in the USB-A passthrough port, sold separately; a DualShock or DualSense will not work.</div></div><div class="qa"><div class="qaQ">Q4｜Can two players share one board?</div><div class="qaA">No. Each board is one controller. For a two-player cabinet use two boards: each shows up as its own controller on the PC, with its own button map set from the same page in your browser.</div></div><div class="qa"><div class="qaQ">Q5｜Who do I contact for support?</div><div class="qaA">Hardware questions, replacements and setup help come to SINTRON. The firmware is an open-source project; its documentation and community are the right place for firmware questions.</div></div></div></div><div class="sec" id="g11"><div class="secH"><span class="secN">A+格11</span><span class="secT">Premium Text</span></div><div class="txtMod"><h3>Give your stick an Agent: what it does, and what to know before you buy</h3><p>An arcade stick is only as good as the board inside it. A basic USB encoder is a fixed wire: one button, one function, one kind of platform. The SINTRON Arcade Stick Agent is the board that works on your behalf.</p><p>It speaks every platform. XInput on PC, Raspberry Pi / RetroPie and Steam Deck with no drivers; native PS3 and Nintendo Switch modes; keyboard mode for MAME cabinets; MiSTer and Android; dedicated modes for Genesis / Mega Drive Mini, NEOGEO Mini, PC Engine Mini, EGRET II Mini, ASTROCITY Mini and PlayStation Classic. PS4, PS5 and Xbox One / Series X|S use an authentication dongle in the USB-A passthrough port.</p><p>It learns your layout. Plug in, open the setup page in your browser and press each button when it asks. Any button can be any function. Six named profiles, turbo, macros and per-button RGB are set on the same page and saved on the board.</p><p>It enforces your rules. SOCD cleaning with five modes for leverless play: up priority, neutral, last win, first win and off, switched by hotkey.</p><p>It keeps improving. The board runs the open-source GP2040-CE firmware. New releases add features and fixes; update by holding BOOT while plugging in USB and copying the .uf2 file for this board onto the drive that appears. Settings can be backed up and restored from the setup page.</p><p>It keeps your parts. 20-position 3.81 mm screw terminals take stripped wire from 4.8 mm American or 2.8 mm Japanese buttons; the 2x10 header takes a standard 20-pin harness; the 4-pin plug covers A2, L3 and R3. Industry-standard 96.3 x 45.31 mm footprint with 4 mounting holes.</p><p>It arrives ready. Every board is pre-flashed with the current stable firmware and individually checked by SINTRON before shipping: every input read on the setup page, both USB ports, the passthrough port with an authentication dongle in place, and the boot into the setup page.</p><p>Before you buy. An authentication dongle answers the console&#x27;s controller check. For PS4 and PS5 that is an authentication dongle or converter, or a licensed PS4 arcade stick; a DualShock 4 or DualSense does not work. For Xbox One and Series X|S it is an Xbox authentication dongle. All are sold separately, and SINTRON does not supply console keys of any kind. Without a dongle, a PS4 stops the controller after 8 minutes; PS5 mode works with titles that support legacy controllers. PC, Raspberry Pi, PS3, Nintendo Switch, Steam Deck, MiSTer and Android need nothing extra. Board only: bring a USB-B or USB-C cable and your own button wires. Two players need two boards. The USB-B and USB-C ports are two ways into the same device connection: use one at a time. The USB / OPTION switch decides whether the passthrough port or optional pins 1 and 2 are active, not both. The LED / GPIO25 switch decides whether the on-board LED is controlled from the setup page or that pin is freed for your own use. Input latency figures (0.76 ms XInput / 0.91 ms PS5 at 1000 Hz) are published by the firmware project, not measured by SINTRON.</p><p>Made by SINTRON. Our name is on the silkscreen. Hardware questions and replacements come to SINTRON; firmware documentation and community stay with the open-source project. Based on the RP2040 Advanced Breakout Board, USB Passthrough Edition, from the GP2040-CE project (copyright 2024 TheTrain), licensed under CC BY 4.0. Changes from the original design: manufactured by SINTRON with SINTRON silkscreen. The full attribution with links is available from SINTRON on request.</p></div></div></div><script>
+const $ = s => document.querySelector(s);
+
+/* ---------- 主圖組 ---------- */
+const GAL = [1,2,3,4,5,6,7,8,9].map(i => "gallery/" + i + ".jpg");
+function setMain(i){
+  $("#mainImg").src = GAL[i];
+  document.querySelectorAll("#thumbs img").forEach((t,j)=>t.classList.toggle("on", j===i));
+  hideZoom();
+}
+$("#thumbs").innerHTML = GAL.map((f,i)=>`<img src="${f}" data-i="${i}" class="${i===0?'on':''}" alt="thumb ${i+1}" loading="lazy">`).join("");
+$("#thumbs").onclick = e => { if(e.target.dataset.i) setMain(+e.target.dataset.i); };
+setMain(0);
+
+/* ---------- 主圖滑鼠放大(Amazon 式:鏡頭框 + 右側放大面板)---------- */
+const ZOOM = 2.6;
+function hideZoom(){ $("#lens").style.display="none"; $("#zoomPane").style.display="none"; }
+function moveZoom(e){
+  const host=$("#zoomHost"), lens=$("#lens"), pane=$("#zoomPane"), img=$("#mainImg");
+  if(window.innerWidth < 1100 || !img.naturalWidth){ hideZoom(); return; }
+  const r = img.getBoundingClientRect(), hr = host.getBoundingClientRect();
+  if(r.width < 200){ hideZoom(); return; }
+  const pw = pane.offsetWidth || 560, ph = pane.offsetHeight || 560;
+  const lw = pw / ZOOM, lh = ph / ZOOM;
+  let x = e.clientX - r.left - lw/2, y = e.clientY - r.top - lh/2;
+  x = Math.max(0, Math.min(x, r.width  - lw));
+  y = Math.max(0, Math.min(y, r.height - lh));
+  lens.style.width = lw+"px"; lens.style.height = lh+"px";
+  lens.style.left = (r.left - hr.left + x)+"px";
+  lens.style.top  = (r.top  - hr.top  + y)+"px";
+  pane.style.backgroundImage = 'url("'+img.getAttribute("src")+'")';
+  pane.style.backgroundSize = (r.width*ZOOM)+"px "+(r.height*ZOOM)+"px";
+  pane.style.backgroundPosition = (-x*ZOOM)+"px "+(-y*ZOOM)+"px";
+  lens.style.display = "block"; pane.style.display = "block";
+}
+(function(){
+  const box = document.querySelector(".main");
+  box.addEventListener("mousemove", moveZoom);
+  box.addEventListener("mouseenter", moveZoom);
+  box.addEventListener("mouseleave", hideZoom);
+  window.addEventListener("scroll", hideZoom, { passive:true });
+  window.addEventListener("resize", hideZoom);
+})();
+
+/* ---------- 格1 熱點:滑鼠移上去或點一下開卡片 ---------- */
+document.querySelectorAll(".hs").forEach(h => {
+  h.addEventListener("click", e => {
+    const on = h.classList.contains("on");
+    document.querySelectorAll(".hs.on").forEach(x => x.classList.remove("on"));
+    if(!on) h.classList.add("on");
+    e.stopPropagation();
+  });
+});
+document.addEventListener("click", () => document.querySelectorAll(".hs.on").forEach(x => x.classList.remove("on")));
+
+/* ---------- 輪播:原生捲動吸附,左右鍵、圓點、拖曳、方向鍵 ---------- */
+function carousel(car, foot){
+  const track = car.querySelector(".track");
+  const slides = Array.from(car.querySelectorAll(".slide"));
+  const prev = car.querySelector(".prev"), next = car.querySelector(".next");
+  const dots = foot ? Array.from(foot.querySelectorAll(".dot")) : [];
+  const n = slides.length;
+  const at = () => Math.round(track.scrollLeft / Math.max(1, track.clientWidth));
+  const go = i => track.scrollTo({ left: i * track.clientWidth, behavior: "smooth" });
+  function sync(){
+    const i = Math.min(n-1, Math.max(0, at()));
+    dots.forEach((d,j)=>d.classList.toggle("on", j===i));
+    car.querySelectorAll("[data-tab]").forEach((t,j)=>t.classList.toggle("on", j===i));
+    prev.disabled = i <= 0; next.disabled = i >= n-1;
+    car.dispatchEvent(new CustomEvent("slidechange", {detail:i}));
+  }
+  prev.onclick = () => go(Math.max(0, at()-1));
+  next.onclick = () => go(Math.min(n-1, at()+1));
+  dots.forEach(d => d.onclick = () => go(+d.dataset.i));
+  track.addEventListener("scroll", () => { clearTimeout(track._t); track._t = setTimeout(sync, 70); });
+  track.addEventListener("keydown", e => {
+    if(e.key === "ArrowRight"){ e.preventDefault(); next.click(); }
+    if(e.key === "ArrowLeft"){  e.preventDefault(); prev.click(); }
+  });
+  window.addEventListener("resize", sync);
+  /* 用第一張的實際比例鎖住高度,翻頁時版面不跳 */
+  const first = car.querySelector(".slideImg img");
+  first.loading = "eager";
+  const lockAR = () => {
+    if(first.naturalWidth && first.naturalHeight){
+      car.style.setProperty("--ar", (first.naturalWidth / first.naturalHeight).toFixed(4));
+      car.classList.add("fixed");
+    }
+    sync();
+  };
+  if(first.complete) lockAR(); else first.addEventListener("load", lockAR, { once:true });
+  sync();
+  return go;
+}
+const go2 = carousel($("#car2"), $("#foot2"));
+const go3 = carousel($("#car3"), null);
+
+/* 格3 頁籤:點頁籤 = 翻到那一張;翻頁時頁籤跟著亮 */
+document.querySelectorAll(".navTab").forEach((t,i) => t.onclick = () => go3(i));
+$("#car3").addEventListener("slidechange", e => {
+  document.querySelectorAll(".navTab").forEach((t,j)=>t.classList.toggle("on", j===e.detail));
+});
+</script></body></html>
